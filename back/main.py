@@ -23,7 +23,7 @@ app.add_middleware(
 
 @app.post('/registration')
 def post(data=Body()):
-    username = data['username']
+    username = data['user_email']
     password = data['password']
     TOKEN = str(token_hex(32))
     print(TOKEN)
@@ -43,7 +43,7 @@ def post(data=Body()):
 
 @app.post('/authorization')
 def post(data=Body()):
-    username = data['username']
+    username = data['user_email']
     password = data['password']
     connection = sqlite3.connect('my_database.db')
     cursor = connection.cursor()
@@ -63,20 +63,35 @@ def post(data=Body()):
         return JSONResponse({'TOKEN':TOKEN[0]}, status_code=200)
 @app.post('/list')
 def list(data=Body()):
-    TOKEN = data['TOKEN']
-    list_name = data['list_name']
+    TOKEN = data['token']
+    list_name = data['name']
+    username = data['user_email']
     connection = sqlite3.connect('my_database.db')
     cursor = connection.cursor()
+
+
+    cursor.execute(('''SELECT username FROM Users
+        WHERE TOKEN = '{}';
+        ''').format(TOKEN))
+
+    use = cursor.fetchall()
+    if use[0][0] != username:
+        return JSONResponse({'error': 'noregistration'}, status_code=404)
+
+
+
+
     cursor.execute(('''SELECT Users.id FROM Users WHERE TOKEN ='{}';''').format(TOKEN))
-    id = cursor.fetchone()
+    id_user = cursor.fetchone()
     cursor.execute('INSERT INTO List(owner, list_name) VALUES(?, ?);',
-                       (str(id[0]), list_name))
+                       (str(id_user[0]), list_name))
 
-
-
+    cursor.execute(('''SELECT List.id FROM List WHERE list_name ='{}';''').format(list_name))
+    id = cursor.fetchone()
 
     cursor.close()
     connection.commit()
     connection.close()
-    return JSONResponse({'TOKEN': id[0]}, status_code=200)
+    return JSONResponse({'id': id[0]}, status_code=200)
+
 uvicorn.run(app,port=8001)
