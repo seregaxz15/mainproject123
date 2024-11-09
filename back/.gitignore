@@ -1,0 +1,25 @@
+#Создание бд
+
+connection = sqlite3.connect('my_database.db')
+cursor = connection.cursor()
+
+cursor.executescript('''
+CREATE TABLE Users (
+id INTEGER PRIMARY KEY,
+username TEXT NOT NULL,
+password TEXT NOT NULL,
+TOKEN TEXT NOT NULL
+);
+
+CREATE TABLE List (
+id INTEGER PRIMARY KEY,
+owner INTEGER
+);
+
+CREATE TABLE IF NOT EXISTS Money (
+id_use INTEGER,
+list_items TEXT NOT NULL,
+sum TEXT NOT NULL,
+done TEXT NOT NULL
+);
+''')
