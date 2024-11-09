@@ -19,13 +19,15 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+
+
 @app.post('/registration')
 def post(data=Body()):
     username = data['username']
     password = data['password']
     TOKEN = str(token_hex(32))
     print(TOKEN)
-    connection = sqlite3.connect('database1.db')
+    connection = sqlite3.connect('my_database.db')
     cursor = connection.cursor()
     try:
         cursor.execute('INSERT INTO Users(username, password, TOKEN) VALUES(?, ?, ?);',
@@ -43,7 +45,7 @@ def post(data=Body()):
 def post(data=Body()):
     username = data['username']
     password = data['password']
-    connection = sqlite3.connect('database1.db')
+    connection = sqlite3.connect('my_database.db')
     cursor = connection.cursor()
     cursor.execute(('''SELECT password FROM Users
     WHERE username = '{}';
@@ -62,11 +64,15 @@ def post(data=Body()):
 @app.post('/list')
 def list(data=Body()):
     TOKEN = data['TOKEN']
-    connection = sqlite3.connect('database1.db')
+    list_name = data['list_name']
+    connection = sqlite3.connect('my_database.db')
     cursor = connection.cursor()
     cursor.execute(('''SELECT Users.id FROM Users WHERE TOKEN ='{}';''').format(TOKEN))
     id = cursor.fetchone()
-    cursor.execute('INSERT INTO List(owner) VALUES("' + str(id[0]) + '")')
+    cursor.execute('INSERT INTO List(owner, list_name) VALUES(?, ?);',
+                       (str(id[0]), list_name))
+
+
 
 
     cursor.close()
