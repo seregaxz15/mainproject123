@@ -8,7 +8,7 @@ from fastapi.middleware.cors import CORSMiddleware
 app = FastAPI()
 
 origins = [
-    "http://localhost:*",#port
+    "http://localhost:8001",
 ]
 
 app.add_middleware(
@@ -59,9 +59,18 @@ def post(data=Body()):
                             ''').format(username))
         TOKEN = cursor.fetchone()
         return JSONResponse({'TOKEN':TOKEN[0]}, status_code=200)
+@app.post('/list')
+def list(data=Body()):
+    TOKEN = data['TOKEN']
+    connection = sqlite3.connect('database1.db')
+    cursor = connection.cursor()
+    cursor.execute(('''SELECT Users.id FROM Users WHERE TOKEN ='{}';''').format(TOKEN))
+    id = cursor.fetchone()
+    cursor.execute('INSERT INTO List(owner) VALUES("' + str(id[0]) + '")')
 
 
-
-
-
+    cursor.close()
+    connection.commit()
+    connection.close()
+    return JSONResponse({'TOKEN': id[0]}, status_code=200)
 uvicorn.run(app,port=8001)
