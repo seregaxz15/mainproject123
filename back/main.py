@@ -25,7 +25,7 @@ def post(data=Body()):
         cursor.close()  # Закрытие курсора
         connection.close()  # Закрытие соединения
 
-    return JSONResponse({'message': 'everything'}, status_code=200)
+    return JSONResponse({'TOKEN': TOKEN}, status_code=200)
 
 
 
