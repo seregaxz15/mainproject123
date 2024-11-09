@@ -7,7 +7,7 @@ from secrets import token_hex
 app = FastAPI()
 
 
-@app.post('/post')
+@app.post('/registration')
 def post(data=Body()):
     username = data['username']
     password = data['password']
