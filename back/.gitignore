@@ -24,6 +24,7 @@ id_user INTEGER,
 id_list TEXT NOT NULL,
 list_name TEXT NOT NULL,
 sum TEXT NOT NULL,
+description TEXT NOT NULL,
 done TEXT NOT NULL
 );
 ''')
