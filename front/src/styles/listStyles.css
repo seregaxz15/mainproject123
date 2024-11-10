@@ -1,0 +1,118 @@
+/* Центрирование всей формы на странице */
+.form-container {
+    display: flex;
+    justify-content: center;  /* Выравнивание по горизонтали */
+    align-items: center;      /* Выравнивание по вертикали */
+    height: 100vh;            /* Высота страницы 100% */
+    background-color: #f5f5f5; /* Легкий фон страницы */
+}
+
+/* Стили для самой формы */
+.check-form {
+    background-color: #fff;      /* Белый фон для формы */
+    padding: 20px 30px;           /* Отступы вокруг содержимого */
+    border-radius: 8px;           /* Закругленные углы */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Легкая тень */
+    width: 100%;                  /* Ширина 100% */
+    max-width: 600px;             /* Ограничение по максимальной ширине */
+    box-sizing: border-box;      /* Учет отступов в ширине */
+}
+
+/* Стили для блоков с метками и полями ввода */
+.form-group {
+    margin-bottom: 20px;          /* Отступ снизу */
+}
+
+/* Стили для заголовков */
+h3 {
+    margin-top: 20px;
+    color: #333;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+/* Стили для всех input полей */
+.input-field {
+    width: 100%;                  /* Поля занимают всю ширину родительского блока */
+    padding: 12px;                /* Внутренний отступ */
+    margin-top: 8px;              /* Отступ сверху */
+    border-radius: 6px;           /* Закругленные углы */
+    border: 1px solid #ccc;       /* Светлая рамка */
+    font-size: 14px;              /* Размер шрифта */
+    transition: all 0.3s ease;    /* Плавное изменение свойств при фокусе */
+}
+
+/* Стили при фокусе на поле ввода */
+.input-field:focus {
+    border-color: #4CAF50;        /* Зеленая рамка */
+    background-color: #eaf7e3;    /* Светло-зеленый фон */
+    outline: none;                /* Убираем стандартное выделение */
+}
+
+/* Стили для меток */
+label {
+    font-size: 14px;
+    color: #333;
+    display: block;
+    font-weight: 600;             /* Полужирное начертание */
+}
+
+/* Стиль для кнопок */
+button {
+    padding: 12px 18px;            /* Внутренний отступ */
+    border-radius: 6px;            /* Закругленные углы */
+    cursor: pointer;               /* Курсор в виде руки */
+    font-size: 16px;               /* Размер шрифта */
+    border: none;                  /* Без рамки */
+    transition: all 0.3s ease;     /* Плавное изменение */
+    width: 100%;                   /* Кнопка занимает всю ширину */
+    box-sizing: border-box;        /* Учитываем padding в ширине */
+}
+
+/* Стиль для кнопки "Add Item" */
+.add-item-btn {
+    background-color: #007BFF;     /* Синий фон */
+    color: white;                  /* Белый текст */
+}
+
+.add-item-btn:hover {
+    background-color: #0056b3;     /* Тёмно-синий при наведении */
+}
+
+/* Стиль для кнопки "Create list" */
+.submit-btn {
+    background-color: #28a745;     /* Зеленый фон */
+    color: white;                  /* Белый текст */
+}
+
+.submit-btn:hover {
+    background-color: #218838;     /* Тёмно-зеленый при наведении */
+}
+
+/* Горизонтальная линия для разделения элементов */
+hr {
+    border: 0;
+    border-top: 1px solid #f0f0f0; /* Тонкая линия */
+    margin: 20px 0;
+}
+
+/* Дополнительные стили для таблицы с элементами */
+.item-group {
+    margin-bottom: 20px;
+}
+
+/* Минимальная ширина для полей ввода и кнопок */
+@media (max-width: 480px) {
+    .check-form {
+        padding: 15px;             /* Меньше отступов на маленьких экранах */
+        width: 100%;
+    }
+
+    .input-field {
+        padding: 10px;             /* Меньше отступов внутри полей ввода */
+    }
+
+    button {
+        padding: 10px 15px;        /* Меньше отступов на кнопках */
+    }
+}

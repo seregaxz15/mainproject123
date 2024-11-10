@@ -1,0 +1,173 @@
+/* Общие стили для всех элементов */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #121212; /* темный фон */
+    color: #e0e0e0; /* светлый текст */
+    font-family: 'Roboto', sans-serif;
+}
+
+/* Контейнер для всех компонентов */
+.container {
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #2b2b2b;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Заголовки */
+.title {
+    text-align: center;
+    font-size: 32px;
+    font-weight: bold;
+    color: #bb86fc; /* фиолетовый */
+    margin-bottom: 20px;
+}
+
+/* Параграфы */
+.paragraph {
+    font-size: 16px;
+    color: #bbb;
+    margin-bottom: 15px;
+}
+
+/* Кнопки */
+button {
+    background-color: #bb86fc;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #9a67d6; /* темный фиолетовый */
+}
+
+/* Форма */
+.auth-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #121212;
+}
+
+.auth-form {
+    width: 100%;
+    max-width: 400px;
+    background-color: #333333;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.auth-form input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #444444;
+    border-radius: 5px;
+    background-color: #2b2b2b;
+    color: #e0e0e0;
+    font-size: 16px;
+}
+
+.auth-form input::placeholder {
+    color: #888;
+}
+
+.form-link {
+    color: #bb86fc;
+    cursor: pointer;
+}
+
+/* Стили для списка чеков */
+.checks-list-container {
+    padding: 20px;
+    background-color: #333333;
+    border-radius: 8px;
+}
+
+.check-item {
+    display: flex;
+    flex-direction: column;
+    padding: 20px 25px;
+    background-color: #444444;
+    border: 1px solid #555555;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    transition: background-color 0.3s;
+}
+
+.check-item:hover {
+    background-color: #555555;
+}
+
+.check-item h3 {
+    font-size: 20px;
+    color: #e0e0e0;
+    margin-bottom: 10px;
+}
+
+.check-amount {
+    color: #e74c3c;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.check-status {
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+.check-status.due {
+    color: #e74c3c;
+}
+
+.check-status.paid {
+    color: #2ecc71;
+}
+
+/* Стили для списка в деталях чека */
+.item-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.item {
+    background-color: #444444;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+}
+
+.item strong {
+    color: #bb86fc;
+}
+
+/* Стиль для формы добавления чеков */
+.form-add-item {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.form-add-item button {
+    background-color: #e74c3c; /* красная кнопка для добавления */
+}
+
+hr {
+    margin: 15px 0;
+    border: 0;
+    border-top: 1px solid #444444;
+}

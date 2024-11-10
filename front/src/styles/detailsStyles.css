@@ -1,0 +1,31 @@
+.dark-theme-wrapper {
+  background-color: #121212;
+  color: #e0e0e0;
+  padding: 20px;
+  min-height: 100vh;
+}
+
+.title {
+  color: #bb86fc;
+}
+
+.paragraph {
+  font-size: 16px;
+  margin: 10px 0;
+}
+
+.item-list {
+  list-style: none;
+  padding: 0;
+}
+
+.item {
+  background-color: #333;
+  margin: 5px 0;
+  padding: 10px;
+  border-radius: 3px;
+}
+
+.item strong {
+  font-weight: bold;
+}

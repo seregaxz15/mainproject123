@@ -1,0 +1,71 @@
+/* Общие стили для текста в check-item */
+.check-item h3, .check-item p {
+    margin: 0;  /* Убираем любые маргины */
+    padding: 0; /* Убираем любые паддинги */
+}
+
+/* Контейнер списка чеков */
+.checks-list-container {
+    width: 100%;
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #2b2b2b;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Стиль для каждого элемента списка */
+.check-item {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 20px 25px;
+    margin-bottom: 10px;
+    background-color: #333333;
+    background-color: #2ecc71;
+    border: 1px solid #444444;
+    border-radius: 8px;
+    font-size: 16px;
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+/* Элементы списка в .check-item */
+.check-item h3 {
+    font-size: 20px;  /* Размер шрифта для заголовков */
+    font-weight: bold;
+    color: #e0e0e0;
+    margin-bottom: 10px;  /* Отступ снизу */
+}
+
+/* Стиль для суммы */
+.check-amount {
+    color: #e74c3c;
+    font-weight: bold;
+    font-size: 18px;
+    margin-top: 10px;
+}
+
+/* Стиль для статуса */
+.check-status {
+    font-weight: bold;
+    margin-top: 10px;
+    font-size: 14px;
+}
+
+/* Статус "должны" */
+.check-status.due {
+    color: #e74c3c;
+}
+
+/* Статус "оплачено" */
+.check-status.paid {
+    color: #2ecc71;
+}
+
+/* Убираем ненужные отступы для Link */
+.check-item a {
+    text-decoration: none; /* Убираем подчеркивание у ссылок */
+    color: inherit; /* Сохраняем цвет родительского элемента */
+}
