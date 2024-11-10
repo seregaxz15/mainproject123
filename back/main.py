@@ -1,5 +1,5 @@
 import uvicorn
-from fastapi import FastAPI, Body
+from fastapi import FastAPI, Body, Request
 from fastapi.responses import JSONResponse, HTMLResponse, FileResponse
 import sqlite3
 from secrets import token_hex
@@ -18,7 +18,6 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
 
 
 @app.post('/registration')
@@ -62,10 +61,18 @@ def post(data=Body()):
         TOKEN = cursor.fetchone()
         return JSONResponse({'TOKEN':TOKEN[0]}, status_code=200)
 @app.post('/list')
-def list(data=Body()):
-    TOKEN = data['token']
-    list_name = data['name']
-    username = data['user_email']
+async def list(request: Request):
+    data = await request.json()
+
+    TOKEN = data.get("token")
+    list_name = data.get("name")
+    items = data.get("items")
+    for item in items:
+        username = item.get("user_email")
+        sum= item.get("sum")
+        description = item.get("description")
+
+    done=False
     connection = sqlite3.connect('my_database.db')
     cursor = connection.cursor()
 
@@ -76,7 +83,7 @@ def list(data=Body()):
 
     use = cursor.fetchall()
     if use[0][0] != username:
-        return JSONResponse({'error': 'noregistration'}, status_code=404)
+        return JSONResponse({'error': str(username)+' no_registration'}, status_code=404)
 
 
 
@@ -88,6 +95,9 @@ def list(data=Body()):
 
     cursor.execute(('''SELECT List.id FROM List WHERE list_name ='{}';''').format(list_name))
     id = cursor.fetchone()
+    cursor.execute('INSERT INTO Dolg(id_user, id_list, list_name, sum,description, done) VALUES(?, ?, ?, ?, ?, ?);',
+                   (str(id_user[0]), id[0], list_name, sum, description, done))
+    connection.commit()
 
     cursor.close()
     connection.commit()
