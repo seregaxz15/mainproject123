@@ -63,56 +63,45 @@ def post(data=Body()):
 @app.post('/list')
 async def list(request: Request):
     data = await request.json()
+
     TOKEN = data.get("token")
     list_name = data.get("name")
     items = data.get("items")
-    done=True
+    for item in items:
+        username = item.get("user_email")
+        sum= item.get("sum")
+        description = item.get("description")
+
+    done=False
     connection = sqlite3.connect('my_database.db')
     cursor = connection.cursor()
+
+
+    cursor.execute(('''SELECT username FROM Users
+        WHERE TOKEN = '{}';
+        ''').format(TOKEN))
+
+    use = cursor.fetchall()
+    if use[0][0] != username:
+        return JSONResponse({'error': str(username)+' no_registration'}, status_code=404)
+
+
+
 
     cursor.execute(('''SELECT Users.id FROM Users WHERE TOKEN ='{}';''').format(TOKEN))
     id_user = cursor.fetchone()
     cursor.execute('INSERT INTO List(owner, list_name) VALUES(?, ?);',
                        (str(id_user[0]), list_name))
 
-    id_list = cursor.lastrowid
-
-    for item in items:
-        username = item.get("user_email")
-        sum = item.get("sum")
-        description = item.get("description")
-
-        cursor.execute(('''SELECT Users.id FROM Users WHERE username ='{}';''').format(username))
-        id_user_creditor = cursor.fetchone()
-
-        cursor.execute('INSERT INTO Dolg(id_user, id_list, list_name, sum, description, done) VALUES(?, ?, ?, ?, ?, ?);',
-                       (str(id_user_creditor[0]), id_list, list_name, sum, description, done))
+    cursor.execute(('''SELECT List.id FROM List WHERE list_name ='{}';''').format(list_name))
+    id = cursor.fetchone()
+    cursor.execute('INSERT INTO Dolg(id_user, id_list, list_name, sum,description, done) VALUES(?, ?, ?, ?, ?, ?);',
+                   (str(id_user[0]), id[0], list_name, sum, description, done))
+    connection.commit()
 
     cursor.close()
     connection.commit()
     connection.close()
-    return JSONResponse({'id': id_list}, status_code=200)
-@app.post('/all_lists')
-def all_lists(data=Body()):
-    TOKEN = data['token']
-    connection = sqlite3.connect('my_database.db')
-    cursor = connection.cursor()
-    cursor.execute(('''SELECT Users.id FROM Users WHERE TOKEN ='{}';''').format(TOKEN))
-    id_user = cursor.fetchone()
-    user_list = []
-    cursor.execute('''
-    SELECT List.id, list_name FROM List WHERE owner ='{}';'''.format(id_user[0])
-    )
-    for _list in cursor.fetchall():
-        id, list_name = _list
-        items = []
-        cursor.execute('''SELECT Dolg.id_user, Users.username, Dolg.sum, Dolg.description, Dolg.done FROM Dolg
-         INNER JOIN Users ON Users.id=Dolg.id_user WHERE
-        Dolg.id_list = '{}';
-        '''.format(id))
-        for dolg in cursor.fetchall():
-            items.append({'name': dolg[1], 'sum_dolg': dolg[2], 'decription':dolg[3], 'done':dolg[4]})
-        user_list.append({'id':id, 'name':list_name, 'items': items})
-    return JSONResponse(user_list)
+    return JSONResponse({'id': id[0]}, status_code=200)
 
 uvicorn.run(app,port=8001)
