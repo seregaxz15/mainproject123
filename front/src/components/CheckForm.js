@@ -33,7 +33,7 @@ const CheckForm = () => {
             items,
         };
         console.log(token)
-        const response = axios.post('http://158.160.67.237:8001/list', formData);
+        const response = axios.post('http://localhost:8001/list', formData);
         console.log('Form Data:', JSON.stringify(formData, null, 2));
         console.log(response);
         navigate('/checks');

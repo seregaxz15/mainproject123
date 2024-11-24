@@ -14,7 +14,7 @@ function SignUp({ onToggleForm }) {
         e.preventDefault();
         console.log('Sign up:', formData);
         try {
-            const response = await axios.post('http://158.160.67.237:8001/registration', {
+            const response = await axios.post('http://localhost:8001/registration', {
         user_email: formData.email, password: formData.password})
             const {TOKEN} = response.data;
             console.log(TOKEN);

@@ -12,7 +12,7 @@ const ChecksList = () => {
         const fetchChecks = async () => {
             try {
                 const response = await axios.post(
-                    'http://158.160.67.237:8001/all_lists',
+                    'http://localhost:8001/all_lists',
                     {"token": localStorage.getItem('authToken')},
                 );
                 console.log(response);

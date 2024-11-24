@@ -12,7 +12,7 @@ function SignIn({ onToggleForm }) {
         e.preventDefault();
         console.log('Sign in:', formData);
         try {
-            const response = await axios.post('http://158.160.67.237:8001/authorization', {
+            const response = await axios.post('http://localhost:8001/authorization', {
                 user_email: formData.email, password: formData.password});
             const {TOKEN} = response.data;
             localStorage.setItem('authToken', TOKEN);
