@@ -11,6 +11,7 @@ origins = [
     "*",
 ]
 
+
 app.add_middleware(
     CORSMiddleware,
     allow_origins=origins,
@@ -21,27 +22,38 @@ app.add_middleware(
 
 
 @app.post('/registration')
-def post(data=Body()):
+async def post(data=Body()):
     username = data['user_email']
     password = data['password']
     TOKEN = str(token_hex(32))
     print(TOKEN)
     connection = sqlite3.connect('my_database.db')
     cursor = connection.cursor()
-    try:
-        cursor.execute('INSERT INTO Users(username, password, TOKEN) VALUES(?, ?, ?);',
-                       (username, password, TOKEN))
-        connection.commit()
-    except Exception as e:
-        return JSONResponse({'error': str(e)}, status_code=500)
-    finally:
-        cursor.close()
-        connection.close()
 
-    return JSONResponse({'TOKEN': TOKEN}, status_code=200)
+    cursor.execute(('''SELECT * FROM Users
+    WHERE username = '{}';
+    ''').format(username))
+
+    user_email = cursor.fetchone()
+    if user_email is None:
+        try:
+            cursor.execute('INSERT INTO Users(username, password, TOKEN) VALUES(?, ?, ?);',
+                        (username, password, TOKEN))
+            connection.commit()
+        except Exception as e:
+            return JSONResponse({'error': str(e)}, status_code=500)
+    
+
+        return JSONResponse({'TOKEN': TOKEN}, status_code=200)
+
+        
+    else:
+        return JSONResponse({'error': 'there_is_such_a_login'}, status_code=400)
+
+
 
 @app.post('/authorization')
-def post(data=Body()):
+async def post(data=Body()):
     username = data['user_email']
     password = data['password']
     connection = sqlite3.connect('my_database.db')
@@ -88,12 +100,12 @@ async def list(request: Request):
         cursor.execute('INSERT INTO Dolg(id_user, id_list, list_name, sum, description, done) VALUES(?, ?, ?, ?, ?, ?);',
                        (str(id_user_creditor[0]), id_list, list_name, sum, description, done))
 
-    cursor.close()
+    #cursor.close()
     connection.commit()
-    connection.close()
+    #connection.close()
     return JSONResponse({'id': id_list}, status_code=200)
 @app.post('/all_lists')
-def all_lists(data=Body()):
+async def all_lists(data=Body()):
     TOKEN = data['token']
     connection = sqlite3.connect('my_database.db')
     cursor = connection.cursor()
