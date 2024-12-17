@@ -15,7 +15,7 @@ function App() {
               <Routes>
                   <Route path="/" element={<Registration/>}/>
                   <Route path="/checks" element={<ChecksList/>}/>
-                  {/*<Route path="/:id" element={<CheckDetails />} />*/}
+                  {/* <Route path="/:id" element={<CheckDetails />} /> */}
                   <Route path="/create" element={<CheckForm />} />
               </Routes>
           </div>

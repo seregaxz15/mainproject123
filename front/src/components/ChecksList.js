@@ -1,12 +1,28 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import '../styles/listStyles.css';
 
 const ChecksList = () => {
-    const [checks, setChecks] = useState([]);
+    const [checks, setChecks] = useState([{
+        "token": null,
+        "name": "123",
+        "items": [
+          {
+            "user_email": "123@1",
+            "sum": 123,
+            "name": "123"
+          },
+          {
+            "user_email": "12311@1",
+            "sum": 123123123,
+            "name": "1231231231232"
+          }
+        ]
+      }]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const navigate = useNavigate()
 
     useEffect(() => {
         const fetchChecks = async () => {
@@ -57,6 +73,7 @@ const ChecksList = () => {
                         ))}
                     </ul>
                 )}
+                <button onClick={() => {navigate('/create')}}>Create check</button>
             </div>
         </div>
     );

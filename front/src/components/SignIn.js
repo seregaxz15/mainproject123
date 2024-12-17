@@ -1,12 +1,14 @@
 import { useState } from 'react';
 import '../styles/styles.css';
 import axios from "axios";
+import {useNavigate} from "react-router-dom";
 
 function SignIn({ onToggleForm }) {
     const [formData, setFormData] = useState({
         email: '',
         password: ''
     });
+    const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -17,6 +19,7 @@ function SignIn({ onToggleForm }) {
             const {TOKEN} = response.data;
             localStorage.setItem('authToken', TOKEN);
             window.location.href = '/dashboard';
+            navigate('/checks')
         } catch (e) {
             console.error('SignIn error:', e);
             console.error(e);
