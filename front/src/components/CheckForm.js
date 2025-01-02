@@ -16,7 +16,7 @@ const CheckForm = () => {
 
     const handleAddItem = (e) => {
         e.preventDefault();
-        setItems([...items, { user_email: '', sum: 0, name: '' }]);
+        setItems([...items, { user_email: '', sum: '', description: '' }]);
     };
 
     const handleItemChange = (index, field, value) => {

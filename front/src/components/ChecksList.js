@@ -4,24 +4,8 @@ import axios from 'axios';
 import '../styles/listStyles.css';
 
 const ChecksList = () => {
-    const [checks, setChecks] = useState([{
-        "token": null,
-        "name": "123",
-        "items": [
-          {
-            "user_email": "123@1",
-            "sum": 123,
-            "name": "123"
-          },
-          {
-            "user_email": "12311@1",
-            "sum": 123123123,
-            "name": "1231231231232"
-          }
-        ]
-      }]);
+    const [checks, setChecks] = useState([]);
     const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
     const navigate = useNavigate()
 
     useEffect(() => {
@@ -35,20 +19,16 @@ const ChecksList = () => {
                 setChecks(response.data);
                 setLoading(false);
             } catch (err) {
-                console.error(err);
-                setError('Ошибка при загрузке данных');
+                console.error('Ошибка при загрузке данных');
                 setLoading(false);
             }
         };
 
         fetchChecks();
     }, []);
+
     if (loading) {
         return <div className="loading">Загрузка чеков...</div>;
-    }
-
-    if (error) {
-        return <div className="error">{error}</div>;
     }
 
     return (
@@ -62,7 +42,7 @@ const ChecksList = () => {
                     <ul>
                         {checks.map((check) => (
                             <li key={check.id} className="check-item">
-                                <Link to={`/check/${check.id}`}>
+                                <Link to={`/${check.id}`}>
                                     <h3>{check.name}</h3>
                                     <p className="check-amount">{check.sum} ₽</p>
                                     <p className="check-status">

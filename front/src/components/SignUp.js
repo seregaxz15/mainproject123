@@ -12,7 +12,6 @@ function SignUp({ onToggleForm }) {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log('Sign up:', formData);
         try {
             const response = await axios.post('http://localhost:8001/registration', {
         user_email: formData.email, password: formData.password})

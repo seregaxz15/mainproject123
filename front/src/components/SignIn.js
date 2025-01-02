@@ -8,17 +8,16 @@ function SignIn({ onToggleForm }) {
         email: '',
         password: ''
     });
+
     const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log('Sign in:', formData);
         try {
             const response = await axios.post('http://localhost:8001/authorization', {
                 user_email: formData.email, password: formData.password});
             const {TOKEN} = response.data;
             localStorage.setItem('authToken', TOKEN);
-            window.location.href = '/dashboard';
             navigate('/checks')
         } catch (e) {
             console.error('SignIn error:', e);
