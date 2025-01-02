@@ -92,7 +92,7 @@ async def list(request: Request):
     for item in items:
         username = item.get("user_email")
         sum = item.get("sum")
-        description = item.get("description")
+        description = item.get("items")
 
         cursor.execute(('''SELECT Users.id FROM Users WHERE username ='{}';''').format(username))
         id_user_creditor = cursor.fetchone()
