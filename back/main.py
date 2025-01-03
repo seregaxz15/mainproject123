@@ -27,7 +27,7 @@ async def post(data=Body()):
     password = data['password']
     TOKEN = str(token_hex(32))
     print(TOKEN)
-    connection = sqlite3.connect('my_database.db')
+    connection = sqlite3.connect('mainproject123/back/my_database.db')
     cursor = connection.cursor()
 
     cursor.execute(('''SELECT * FROM Users
@@ -56,7 +56,7 @@ async def post(data=Body()):
 async def post(data=Body()):
     username = data['user_email']
     password = data['password']
-    connection = sqlite3.connect('my_database.db')
+    connection = sqlite3.connect('mainproject123/back/my_database.db')
     cursor = connection.cursor()
     cursor.execute(('''SELECT password FROM Users
     WHERE username = '{}';
@@ -79,7 +79,7 @@ async def list(request: Request):
     list_name = data.get("name")
     items = data.get("items")
     done=True
-    connection = sqlite3.connect('my_database.db')
+    connection = sqlite3.connect('mainproject123/back/my_database.db')
     cursor = connection.cursor()
 
     cursor.execute(('''SELECT Users.id FROM Users WHERE TOKEN ='{}';''').format(TOKEN))
@@ -92,7 +92,7 @@ async def list(request: Request):
     for item in items:
         username = item.get("user_email")
         sum = item.get("sum")
-        description = item.get("items")
+        description = item.get("name")
 
         cursor.execute(('''SELECT Users.id FROM Users WHERE username ='{}';''').format(username))
         id_user_creditor = cursor.fetchone()
@@ -107,7 +107,7 @@ async def list(request: Request):
 @app.post('/all_lists')
 async def all_lists(data=Body()):
     TOKEN = data['token']
-    connection = sqlite3.connect('my_database.db')
+    connection = sqlite3.connect('mainproject123/back/my_database.db')
     cursor = connection.cursor()
     cursor.execute(('''SELECT Users.id FROM Users WHERE TOKEN ='{}';''').format(TOKEN))
     id_user = cursor.fetchone()
