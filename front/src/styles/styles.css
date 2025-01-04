@@ -96,6 +96,7 @@ button:hover {
     padding: 20px;
     background-color: #333333;
     border-radius: 8px;
+    width: 150px;
 }
 
 .check-item {
@@ -171,3 +172,12 @@ hr {
     border: 0;
     border-top: 1px solid #444444;
 }
+
+.checked {
+    color: green;
+}
+
+.unchecked {
+    color: black;
+}
+

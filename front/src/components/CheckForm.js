@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import '../styles/formStyles.css';
 import axios from "axios";
 import {useNavigate} from "react-router-dom";
+import '../styles/listStyles.css';
 
 const CheckForm = () => {
     const [token, setToken] = useState(localStorage.getItem('authToken'));
@@ -40,10 +40,10 @@ const CheckForm = () => {
     };
 
     return (
-        <div className="form-container">
-            <form onSubmit={handleSubmit} className="check-form">
+        <div className="full-window">
+            <form onSubmit={handleSubmit} className="checks-list-container">
                 <div className="form-group">
-                    <label htmlFor="name">Name</label>
+                    <label htmlFor="name" className='title'>Название чека</label>
                     <input
                         type="text"
                         id="name"
@@ -55,11 +55,12 @@ const CheckForm = () => {
                 </div>
 
                 <div className="form-group">
-                    <h3>Items</h3>
+                    <h3>Должники</h3>
+                    <hr></hr>
                     {items.map((item, index) => (
                         <div key={index} className="item-group">
                             <div className="form-group">
-                                <label htmlFor={`user_email_${index}`}>User Email</label>
+                                <label htmlFor={`user_email_${index}`}>Email должника</label>
                                 <input
                                     type="email"
                                     id={`user_email_${index}`}
@@ -72,7 +73,7 @@ const CheckForm = () => {
                                 />
                             </div>
                             <div className="form-group">
-                                <label htmlFor={`sum_${index}`}>Sum</label>
+                                <label htmlFor={`sum_${index}`}>Долг</label>
                                 <input
                                     type="number"
                                     id={`sum_${index}`}
@@ -85,7 +86,7 @@ const CheckForm = () => {
                                 />
                             </div>
                             <div className="form-group">
-                                <label htmlFor={`name_${index}`}>Name (optional)</label>
+                                <label htmlFor={`name_${index}`}>Описание долга (необязательно)</label>
                                 <input
                                     type="text"
                                     id={`name_${index}`}
@@ -99,14 +100,14 @@ const CheckForm = () => {
                             <hr />
                         </div>
                     ))}
-                    <button type="button" onClick={handleAddItem} className="add-item-btn">
-                        Add Item
+                    <button type="button" onClick={handleAddItem}>
+                        Добавить нового должника
                     </button>
                 </div>
 
                 <div className="form-group">
-                    <button type="submit" className="submit-btn">
-                        Create list
+                    <button type="submit">
+                        Сохранить чек
                     </button>
                 </div>
             </form>

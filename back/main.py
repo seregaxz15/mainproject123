@@ -27,7 +27,7 @@ async def post(data=Body()):
     password = data['password']
     TOKEN = str(token_hex(32))
     print(TOKEN)
-    connection = sqlite3.connect('my_database.db')
+    connection = sqlite3.connect('mainproject123/back/my_database.db')
     cursor = connection.cursor()
 
     cursor.execute(('''SELECT * FROM Users
@@ -50,13 +50,11 @@ async def post(data=Body()):
     else:
         return JSONResponse({'error': 'there_is_such_a_login'}, status_code=400)
 
-
-
 @app.post('/authorization')
 async def post(data=Body()):
     username = data['user_email']
     password = data['password']
-    connection = sqlite3.connect('my_database.db')
+    connection = sqlite3.connect('mainproject123/back/my_database.db')
     cursor = connection.cursor()
     cursor.execute(('''SELECT password FROM Users
     WHERE username = '{}';
@@ -72,6 +70,7 @@ async def post(data=Body()):
                             ''').format(username))
         TOKEN = cursor.fetchone()
         return JSONResponse({'TOKEN':TOKEN[0]}, status_code=200)
+    
 @app.post('/list')
 async def list(request: Request):
     data = await request.json()
@@ -79,7 +78,7 @@ async def list(request: Request):
     list_name = data.get("name")
     items = data.get("items")
     done=True
-    connection = sqlite3.connect('my_database.db')
+    connection = sqlite3.connect('mainproject123/back/my_database.db')
     cursor = connection.cursor()
 
     cursor.execute(('''SELECT Users.id FROM Users WHERE TOKEN ='{}';''').format(TOKEN))
@@ -92,7 +91,7 @@ async def list(request: Request):
     for item in items:
         username = item.get("user_email")
         sum = item.get("sum")
-        description = item.get("description")
+        description = item.get("name")
 
         cursor.execute(('''SELECT Users.id FROM Users WHERE username ='{}';''').format(username))
         id_user_creditor = cursor.fetchone()
@@ -100,14 +99,13 @@ async def list(request: Request):
         cursor.execute('INSERT INTO Dolg(id_user, id_list, list_name, sum, description, done) VALUES(?, ?, ?, ?, ?, ?);',
                        (str(id_user_creditor[0]), id_list, list_name, sum, description, done))
 
-    #cursor.close()
     connection.commit()
-    #connection.close()
     return JSONResponse({'id': id_list}, status_code=200)
+
 @app.post('/all_lists')
 async def all_lists(data=Body()):
     TOKEN = data['token']
-    connection = sqlite3.connect('my_database.db')
+    connection = sqlite3.connect('mainproject123/back/my_database.db')
     cursor = connection.cursor()
     cursor.execute(('''SELECT Users.id FROM Users WHERE TOKEN ='{}';''').format(TOKEN))
     id_user = cursor.fetchone()

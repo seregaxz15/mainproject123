@@ -26,9 +26,10 @@
 /* Стили для заголовков */
 h3 {
     margin-top: 20px;
-    color: #333;
+    color: #bb86fc;
     font-size: 18px;
     font-weight: bold;
+    margin-bottom: 20px;
 }
 
 /* Стили для всех input полей */
@@ -52,9 +53,8 @@ h3 {
 /* Стили для меток */
 label {
     font-size: 14px;
-    color: #333;
+    color: #bb86fc;
     display: block;
-    font-weight: 600;             /* Полужирное начертание */
 }
 
 /* Стиль для кнопок */
@@ -115,4 +115,8 @@ hr {
     button {
         padding: 10px 15px;        /* Меньше отступов на кнопках */
     }
+}
+
+input{
+    background-color: #888888;
 }

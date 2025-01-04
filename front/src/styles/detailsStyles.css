@@ -10,8 +10,9 @@
 }
 
 .paragraph {
-  font-size: 16px;
-  margin: 10px 0;
+  /*font-size: 16px;*/
+  /*margin: 10px 0;*/
+  color: #e0e0e0;
 }
 
 .item-list {

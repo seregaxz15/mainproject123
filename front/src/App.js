@@ -7,19 +7,24 @@ import ChecksList from "./components/ChecksList";
 import CheckDetails from "./components/CheckDetails";
 import SignIn from "./components/SignIn";
 import CheckForm from "./components/CheckForm";
+import Header from "./components/Header";
+import {ChecksContextProvider} from "./CheckContext";
 
-function App() {
+function App() { // TODO: remove redirect, work with Header
   return (
-      <Router>
-          <div className="App">
-              <Routes>
-                  <Route path="/" element={<Registration/>}/>
-                  <Route path="/checks" element={<ChecksList/>}/>
-                  {/* <Route path="/:id" element={<CheckDetails />} /> */}
-                  <Route path="/create" element={<CheckForm />} />
-              </Routes>
-          </div>
-      </Router>
+      <ChecksContextProvider>
+          <Router>
+              <div className="App">
+                  <Header/>
+                  <Routes>
+                      {/*<Route path="/" element={<Registration/>}/>*/}
+                      <Route path="/checks" element={<ChecksList />}/>
+                      {/*<Route path="/checks/:id" element={<CheckDetails />} />*/}
+                      <Route path="/create" element={<CheckForm />} />
+                  </Routes>
+              </div>
+          </Router>
+      </ChecksContextProvider>
   )
 }
 
