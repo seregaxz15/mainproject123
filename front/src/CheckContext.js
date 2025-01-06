@@ -4,9 +4,7 @@ import axios from 'axios';
 const ChecksContext = createContext()
 
 export const ChecksContextProvider = ({children}) => {
-    const [checks, setChecks] = useState([{id: 2, name: 'bob', items: [
-        {user_email: 'bob@gmail.com', sum: "1200", description: '12'},
-        {user_email: 'aa@a', sum: '1130', description: ''}]}]);
+    const [checks, setChecks] = useState([]);
     const [loading, setLoading] = useState(true);
 
     const fetchChecks = async () => {
