@@ -6,7 +6,8 @@ import {useChecks} from "../CheckContext";
 
 const CheckDetails = () => { // TODO: Work with radiobutton
     const { id } = useParams();
-    const check = useChecks().checks.id
+    const checks = useChecks()
+    const check = checks.checks.find(check => check.id === Number(id));
 
     // const handleChange = () => {
     //     setChecked(!isChecked);
@@ -44,7 +45,7 @@ const CheckDetails = () => { // TODO: Work with radiobutton
                             {/*    className={isChecked ? 'checked' : 'unchecked'}*/}
                             {/*    style={{marginRight: 6}}*/}
                             {/*/>*/}
-                            <strong>{item.user_email}</strong>: {item.sum}₽ - {item.description}
+                            <strong>{item.user_email}</strong>: {item.sum}₽ - {item.description.length !== 0 ? item.description : '(Описания нет)'}
                         </li>
                     ))}
                 </ul>

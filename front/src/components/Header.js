@@ -28,7 +28,10 @@ const Header = () => {
                     <Nav.Link href={"/checks"} style={{marginRight: 24, textDecoration: 'none', fontSize: 20}}>
                         Домой
                     </Nav.Link>
-                    <Nav.Link onClick={() => console.log('Exit')} href={"/registration"}
+                    <Nav.Link onClick={() => {
+                        console.log('Exit')
+                        localStorage.removeItem('authToken')
+                    }} href={"/"}
                               style={{marginRight: 20, textDecoration: 'none', fontSize: 20}}>
                         Выйти
                     </Nav.Link>

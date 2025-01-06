@@ -6,8 +6,7 @@ import CheckElement from "./CheckElement";
 import {useChecks} from "../CheckContext";
 
 const ChecksList = () => {
-    const [checks, loading] = useChecks();
-    console.log("checks:",checks);
+    const {checks, loading} = useChecks();
     const navigate = useNavigate()
 
     if (loading) {

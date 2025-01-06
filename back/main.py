@@ -27,7 +27,7 @@ async def post(data=Body()):
     password = data['password']
     TOKEN = str(token_hex(32))
     print(TOKEN)
-    connection = sqlite3.connect('mainproject123/back/my_database.db')
+    connection = sqlite3.connect('back/my_database.db')
     cursor = connection.cursor()
 
     cursor.execute(('''SELECT * FROM Users
