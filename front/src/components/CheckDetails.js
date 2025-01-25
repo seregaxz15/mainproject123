@@ -33,7 +33,7 @@ const CheckDetails = () => { // TODO: Work with radiobutton
         <div className="full-window">
             <div className={'checks-list-container'}>
                 <h1 className="title" style={{textAlign: 'left'}}>Детали чека: {check.name}</h1>
-                <p className="paragraph" style={{textAlign: 'left'}}>Сумма: {check.items.reduce((acc, el) => acc + Number(el.sum), 0)} ₽</p>
+                <p className="paragraph" style={{textAlign: 'left'}}>Сумма: {check.items.reduce((acc, el) => acc + Number(el.sum_dolg), 0)} ₽</p>
                 <h3 className="title" style={{fontSize: 20, textAlign: 'left'}}>Список:</h3>
                 <ul className="item-list">
                     {check.items.map((item, index) => (
@@ -45,7 +45,7 @@ const CheckDetails = () => { // TODO: Work with radiobutton
                             {/*    className={isChecked ? 'checked' : 'unchecked'}*/}
                             {/*    style={{marginRight: 6}}*/}
                             {/*/>*/}
-                            <strong>{item.user_email}</strong>: {item.sum}₽ - {item.description.length !== 0 ? item.description : '(Описания нет)'}
+                            <strong>{item.name}</strong>: {item.sum_dolg}₽ - {item.description.length !== 0 ? item.description : '(Описания нет)'}
                         </li>
                     ))}
                 </ul>
