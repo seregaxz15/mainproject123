@@ -9,6 +9,7 @@ import SignIn from "./components/SignIn";
 import CheckForm from "./components/CheckForm";
 import Header from "./components/Header";
 import {ChecksContextProvider} from "./CheckContext";
+import History from "./components/History";
 
 function App() { // TODO: remove redirect, work with Header
 
@@ -35,6 +36,7 @@ function AppRoutes() {
                 <Route path="/checks" element={<ChecksList />} />
                 <Route path="/checks/:id" element={<CheckDetails />} />
                 <Route path="/create" element={<CheckForm />} />
+                <Route path="/history" element={<History />} />
             </Routes>
         </div>
     );
