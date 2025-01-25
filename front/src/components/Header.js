@@ -25,6 +25,14 @@ const Header = () => {
                     </Navbar.Text>
                 </div>
                 <div style={{display: 'flex', justifyContent: 'flex-end'}}>
+                    <Nav.Link onClick={() => {
+                        console.log('History')
+                        window.location.href = '/history';
+                        
+                    }} href={"/history"}
+                              style={{marginRight: 20, textDecoration: 'none', fontSize: 20}}>
+                        История
+                    </Nav.Link>
                     <Nav.Link href={"/checks"} style={{marginRight: 24, textDecoration: 'none', fontSize: 20}}>
                         Домой
                     </Nav.Link>
