@@ -27,7 +27,7 @@ async def post(data=Body()):
     password = data['password']
     TOKEN = str(token_hex(32))
     print(TOKEN)
-    connection = sqlite3.connect('back/my_database.db')
+    connection = sqlite3.connect('mainproject123/back/my_database.db')
     cursor = connection.cursor()
 
     cursor.execute(('''SELECT * FROM Users
@@ -50,6 +50,8 @@ async def post(data=Body()):
     else:
         return JSONResponse({'error': 'there_is_such_a_login'}, status_code=400)
 
+
+
 @app.post('/authorization')
 async def post(data=Body()):
     username = data['user_email']
@@ -70,7 +72,6 @@ async def post(data=Body()):
                             ''').format(username))
         TOKEN = cursor.fetchone()
         return JSONResponse({'TOKEN':TOKEN[0]}, status_code=200)
-    
 @app.post('/list')
 async def list(request: Request):
     data = await request.json()
@@ -90,20 +91,44 @@ async def list(request: Request):
 
     for item in items:
         username = item.get("user_email")
-        sum = item.get("sum")
+        sm = item.get("sum")
         description = item.get("name")
 
         cursor.execute(('''SELECT Users.id FROM Users WHERE username ='{}';''').format(username))
         id_user_creditor = cursor.fetchone()
 
         cursor.execute('INSERT INTO Dolg(id_user, id_list, list_name, sum, description, done) VALUES(?, ?, ?, ?, ?, ?);',
-                       (str(id_user_creditor[0]), id_list, list_name, sum, description, done))
+                       (str(id_user_creditor[0]), id_list, list_name, sm, description, done))
 
+    #cursor.close()
     connection.commit()
+    #connection.close()
     return JSONResponse({'id': id_list}, status_code=200)
-
 @app.post('/all_lists')
 async def all_lists(data=Body()):
+    TOKEN = data['token']
+    connection = sqlite3.connect('mainproject123/back/my_database.db')
+    cursor = connection.cursor()
+    cursor.execute(('''SELECT Users.id FROM Users WHERE TOKEN ='{}';''').format(TOKEN))
+    id_user = cursor.fetchone()
+    user_list = []
+    cursor.execute('''
+    SELECT List.id, list_name FROM List WHERE owner ='{}';'''.format(id_user[0])
+    )
+    for _list in cursor.fetchall():
+        id, list_name = _list
+        items = []
+        cursor.execute('''SELECT Dolg.id_user, Users.username, Dolg.sum, Dolg.description, Dolg.done FROM Dolg
+         INNER JOIN Users ON Users.id=Dolg.id_user WHERE
+        Dolg.id_list = '{}';
+        '''.format(id))
+        for dolg in cursor.fetchall():
+            items.append({'name': dolg[1], 'sum_dolg': dolg[2], 'decription':dolg[3], 'done':dolg[4]})
+        user_list.append({'id':id, 'name':list_name, 'items': items})
+    return JSONResponse(user_list)
+
+@app.post('/history')
+async def history(data=Body()):
     TOKEN = data['token']
     connection = sqlite3.connect('mainproject123/back/my_database.db')
     cursor = connection.cursor()
